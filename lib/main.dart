@@ -48,9 +48,9 @@ class AndroidLogin extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              width: 100, // Ajusta el tamaño según lo que necesites
-              height: 100, // Ajusta el tamaño según lo que necesites
-              child: Image.asset('assets/images/logo.png'), // Ruta de la imagen
+              width: 100,
+              height: 100, 
+              child: Image.asset('assets/images/logo.png'),
             ),
             Text('SIMPLE', style: TextStyle(fontSize: 30, color: Colors.blue ,fontFamily: 'SourceCodePro-Italic-VariableFont_wght'), ),
             SizedBox(height: 20),
@@ -75,7 +75,7 @@ class AndroidLogin extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // No funcionalidad de login para este ejemplo
+               
               },
               child: Text('Sign In',
                   style: TextStyle(
@@ -87,7 +87,7 @@ class AndroidLogin extends StatelessWidget {
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
-                        6), // Radio de borde de 0 para cuadrado
+                        6), 
                   ),
                 ),
                 minimumSize: MaterialStateProperty.all(Size.fromHeight(50)),
@@ -154,7 +154,7 @@ class WebLogin extends StatelessWidget {
                 SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    // No funcionalidad de login para este ejemplo
+                   
                   },
                   child: Text(
                     'Login',
@@ -171,7 +171,7 @@ class WebLogin extends StatelessWidget {
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius:
-                            BorderRadius.circular(20), // Radio de borde de 20
+                            BorderRadius.circular(20),
                       ),
                     ),
                     minimumSize: MaterialStateProperty.all(Size.fromHeight(60)),
@@ -186,7 +186,7 @@ class WebLogin extends StatelessWidget {
                     color: const Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
-                Spacer(), // Espacio flexible para empujar el texto "Regístrate" hacia la parte inferior
+                Spacer(), 
                 Text(
                   'Sign up here',
                   style: TextStyle(
