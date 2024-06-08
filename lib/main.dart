@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,128 +18,187 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  Widget build(BuildContext context) {
+    // Detectar la plataforma y mostrar el login correspondiente
+    if (UniversalPlatform.isAndroid) {
+      return AndroidLogin();
+    } else if (UniversalPlatform.isWeb) {
+      return WebLogin();
+    } else {
+      return Scaffold(
+        body: Center(child: Text('Esta plataforma no está soportada')),
+      );
+    }
+  }
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
+// Pantalla de login para Android
+class AndroidLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ejmplos usando https://api.flutter.dev/ :'),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: [
-            Tab(text: 'Material'),
-            Tab(text: 'Cupertino'),
+        title: Text('Login Android Cuba '),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 100, // Ajusta el tamaño según lo que necesites
+              height: 100, // Ajusta el tamaño según lo que necesites
+              child: Image.asset('assets/images/logo.png'), // Ruta de la imagen
+            ),
+            Text('SIMPLE', style: TextStyle(fontSize: 30, color: Colors.blue ,fontFamily: 'SourceCodePro-Italic-VariableFont_wght'), ),
+            SizedBox(height: 20),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Username',
+                border: OutlineInputBorder(),
+                fillColor: Colors.blue[50],
+                filled: true,
+              ),
+            ),
+            SizedBox(height: 20),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Passpharse',
+                border: OutlineInputBorder(),
+                fillColor: Colors.blue[50],
+                filled: true,
+              ),
+              obscureText: true,
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // No funcionalidad de login para este ejemplo
+              },
+              child: Text('Sign In',
+                  style: TextStyle(
+                      color: const Color.fromARGB(255, 255, 255, 255)),),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.blue),
+                padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(horizontal: 165)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        6), // Radio de borde de 0 para cuadrado
+                  ),
+                ),
+                minimumSize: MaterialStateProperty.all(Size.fromHeight(50)),
+              ),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Reset your passpharse?',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: const Color.fromARGB(255, 118, 110, 110),
+              ),
+            ),
           ],
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          MaterialControls(),
-          CupertinoControls(),
-        ],
-      ),
     );
   }
 }
 
-class MaterialControls extends StatefulWidget {
-  @override
-  _MaterialControlsState createState() => _MaterialControlsState();
-}
-
-class _MaterialControlsState extends State<MaterialControls> {
-  double _sliderValue = 0.5;
-  bool _switchValue = false;
-
+class WebLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Barra con material'),
-          Slider(
-            value: _sliderValue,
-            onChanged: (newValue) {
-              setState(() {
-                _sliderValue = newValue;
-              });
-            },
-          ),
-          SizedBox(height: 40),
-          Text('Boton con Material'),
-          Switch(
-            value: _switchValue,
-            onChanged: (newValue) {
-              setState(() {
-                _switchValue = newValue;
-              });
-            },
-          ),
-        ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Login Web Cubita'),
       ),
-    );
-  }
-}
-
-class CupertinoControls extends StatefulWidget {
-  @override
-  _CupertinoControlsState createState() => _CupertinoControlsState();
-}
-
-class _CupertinoControlsState extends State<CupertinoControls> {
-  double _sliderValue = 0.5;
-  bool _switchValue = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Barra con Cupertino '),
-          CupertinoSlider(
-            value: _sliderValue,
-            onChanged: (newValue) {
-              setState(() {
-                _sliderValue = newValue;
-              });
-            },
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Container(
+            width: 400,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 50,
+                    color: const Color.fromARGB(255, 0, 0, 0),
+                    fontFamily: 'AlexBrush-Regular',
+                  ),
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Username',
+                    fillColor: const Color.fromARGB(255, 219, 224, 219),
+                    filled: true,
+                  ),
+                  style: TextStyle(fontSize: 18, color: Colors.green),
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    fillColor: const Color.fromARGB(255, 219, 224, 219),
+                    filled: true,
+                  ),
+                  obscureText: true,
+                  style: TextStyle(fontSize: 18, color: Colors.green),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    // No funcionalidad de login para este ejemplo
+                  },
+                  child: Text(
+                    'Login',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: const Color.fromARGB(238, 248, 248, 248),
+                    ),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.deepPurple),
+                    padding: MaterialStateProperty.all(
+                        EdgeInsets.symmetric(horizontal: 180)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(20), // Radio de borde de 20
+                      ),
+                    ),
+                    minimumSize: MaterialStateProperty.all(Size.fromHeight(60)),
+                  ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Forgot Password?',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: const Color.fromARGB(255, 0, 0, 0),
+                  ),
+                ),
+                Spacer(), // Espacio flexible para empujar el texto "Regístrate" hacia la parte inferior
+                Text(
+                  'Sign up here',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurple,
+                  ),
+                ),
+              ],
+            ),
           ),
-          SizedBox(height: 40),
-          Text('Boton con Cupertino '),
-          CupertinoSwitch(
-            value: _switchValue,
-            onChanged: (newValue) {
-              setState(() {
-                _switchValue = newValue;
-              });
-            },
-          ),
-        ],
+        ),
       ),
     );
   }
